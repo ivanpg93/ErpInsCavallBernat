@@ -1,0 +1,36 @@
+<!--Afegim l'espai de noms per thymeleaf extras spring security-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Plantilla</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <!-- Definim la capçalera que reutilitzarem en les altress pàgines que s'identificarà
+             com un fragment de nom "capcalera". El contingut és el de la variable plantilla.capcalera.titol
+             definida en el fitxer messages.properties. Aquest contingut el visualitzem
+             mitjançant la notació th:text="#{plantilla.capcalera.titol} que trobem com 
+             dins l'etiqueta de l'element-->
+        <header th:fragment="capcalera">
+            <h1 th:text="#{plantilla.capcalera.titol}"/>
+        </header>
+
+        <!-- Definim el peu que reutilitzarem en les altres pàgines que s'identificarà
+             com un fragment de nom "peu". El contingut és el de la variable plantilla.peu
+             definida en el fitxer messages.properties. Aquest contingut el visualitzem
+             mitjançant la notació [[#{plantilla.peu}]] que trobem com a contingut de l'element-->
+        <footer th:fragment="peu">
+            <div>[[#{plantilla.peu}]]</div>
+
+            <!--formulari per fer logout. El recurs (action) serà logout que està implicit en Spring Security-->
+            <form method="POST" th:action="@{/logout}">
+                <!--authentication és l'element de thymeleaf que l'indicara al sistema que ens retorni el
+                    nom de l'usuari autenticat, si li assignem el valor name, i el rol de l'usuari autenticat si
+                    li assignem el valor principal.authorities-->
+                <p><b>Hola <span sec:authentication="name"/>, el teu rol és <span sec:authentication="principal.authorities"/></b></p>
+                <!-- Botó per sortir de l'aplicació-->
+                <p><input type="submit" name="logout" value="Sortir"/></p> 
+            </form>
+        </footer>
+    </body>
+</html>

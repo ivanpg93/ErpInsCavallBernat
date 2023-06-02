@@ -1,0 +1,66 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="#{proveidor.crearProveidor}"/>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <link th:href="@{/styles.css}" rel="stylesheet"></link>
+    </head>
+
+    <body>
+        <header th:replace="layout/navBar :: navBar"/>
+
+        <div class="card center" style="width: 25rem;">
+            <div class="card-body">
+                <h2 class="card-title" th:text="#{proveidor.crearProveidor}"/>
+                <form th:action="@{/guardarProveidor}" method="post" th:object="${proveidor}">
+                    <p>
+                        <label for="cif" th:text="#{proveidor.cif1}"/>
+                        <input class="form-control" type="text" name="cif" th:field="*{cif}"/>
+                        <span th:if="${#fields.hasErrors('cif')}" th:errors="*{cif}"/>
+                    </p>
+                    <p>
+                        <label for="nom" th:text="#{proveidor.nom1}"/>
+                        <input class="form-control" type="text" name="nom" th:field="*{nom}"/>
+                        <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"/>
+                    </p>
+                    <p>
+                        <label for="email" th:text="#{proveidor.email1}"/>
+                        <input class="form-control" type="email" name="email" th:field="*{email}"/>
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
+                    </p>
+                    <p>
+                        <label for="telefon" th:text="#{proveidor.telefon1}"/>
+                        <input class="form-control" type="tel" name="telefon" pattern="[0-9]{9}" th:field="*{telefon}"/>
+                        <span th:if="${#fields.hasErrors('telefon')}" th:errors="*{telefon}"/>
+                    </p>
+                    <p>
+                        <label for="adreca" th:text="#{proveidor.adreca1}"/>
+                        <input class="form-control" type="text" name="adreca" th:field="*{adreca}"/>
+                        <span th:if="${#fields.hasErrors('adreca')}" th:errors="*{adreca}"/>
+                    </p>
+                    <p>
+                        <label for="contacte" th:text="#{proveidor.contacte1}"/>
+                        <input class="form-control" type="text" name="contacte" th:field="*{contacte}"/>
+                        <span th:if="${#fields.hasErrors('contacte')}" th:errors="*{contacte}"/>
+                    </p>
+                    <p>
+                        <label for="descripcio" th:text="#{proveidor.descripcio1}"/>
+                        <textarea class="form-control" type="text" name="descripcio" th:field="*{descripcio}"/>
+                        <span th:if="${#fields.hasErrors('descripcio')}" th:errors="*{descripcio}"/>
+                    </p>
+                    <p>
+                        <label for="observacio" th:text="#{proveidor.observacio1}"/>
+                        <textarea class="form-control" type="text" name="observacio" th:field="*{observacio}"/>
+                        <span th:if="${#fields.hasErrors('observacio')}" th:errors="*{observacio}"/>
+                    </p>
+                    <input class="btn btn-primary btn-lg btn-block" type="submit" name="enviar" value="Crear"/>
+                    <br/>
+                    <a th:href ="@{/proveidors}"><input class="btn btn-primary btn-lg btn-block" type="button" name="enviar" value="Cancelar"/></a>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

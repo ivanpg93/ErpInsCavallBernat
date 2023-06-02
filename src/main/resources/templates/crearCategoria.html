@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="#{categoria.crearCategoria}"/>
+        <meta charset="UTF-8"/>
+        <!--Enllaç als estils de Bootstrap-->
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+        <!--Enllaç als estils de Font Awesome-->
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+        <!--Llibreries jquery, popper i Java Script de bootstrap pels elements dinamics que utilitzarem-->
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        <link th:href="@{/styles.css}" rel="stylesheet"></link>
+    </head>
+    <body> 
+        <header th:replace="layout/navBar :: navBar"/>
+        <div class="card center" style="width: 25rem;">
+            <div class="card-body">
+                <h2 class="card-title" th:text="#{categoria.novaCategoria}"/>
+                <p>          
+                <form th:action="@{/guardarCategoria}" method="post" th:object="${categoria}">
+                    <input type="hidden" name="id_Categoria" th:field="*{id_Categoria}"/>           
+                    <p>
+                        <label for="nom" th:text="#{categoria.nom1}"/>
+                        <input class="form-control" type="text" name="nom" th:field="*{nom}"/>
+                    <div th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"/>
+                    </p>
+                    <input class="btn btn-primary btn-lg btn-block" type="submit" name="enviar" value="Crear"/>
+                    <br/>
+                    <a th:href ="@{/categories}"><input class="btn btn-primary btn-lg btn-block" type="button" name="enviar" value="Cancelar"/></a>
+                </form>
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

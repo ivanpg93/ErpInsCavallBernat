@@ -1,0 +1,85 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="#{usuari.editarUsuari}"/>
+        <meta charset="UTF-8"/>
+        <!--Enllaç als estils de Bootstrap-->
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+        <!--Enllaç als estils de Font Awesome-->
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+        <!--Llibreries jquery, popper i Java Script de bootstrap pels elements dinamics que utilitzarem-->
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        <link th:href="@{/styles.css}" rel="stylesheet"></link>
+    </head>
+    <body>
+        <header th:replace="layout/navBar :: navBar"/>
+        <div class="card center" style="width: 25rem;">
+            <div class="card-body">
+                <h2 class="card-title" th:text="#{usuari.editarUsuari}"/>
+                <p>
+                    <!-- Creem un formulari per introduir les dades que el ControladorInici 
+                        assignarà als atributs del usuari passat com a paràmetre en el mètode 
+                        editarUsuari implementat en aquest ControladorInici. 
+                        Per associar le dades a l'objecte usuari, fem servir l'element th:objecte de 
+                        Thymeleaf, al qual li assignem el paràmetre usuari del mètode editarUsuari 
+                        o editar del controlador.-->
+                <form th:action="@{/guardarUsuari}" method="post" th:object="${usuari}">
+                    <!-- Camp ocult on guardem l'id del usuari per enviar-lo juntament amb les altres dades-->
+                    <input type="hidden" name="id_usuari" th:field="*{id_usuari}"/>
+                    <p>
+                        <label for="nom" th:text="#{usuari.email1}"/> <!--Etiqueta on indiquem a l'usuari que ha d'introduir el nom del usuari-->
+                        <!--Thymeleaf associarà les dades afegides mitjançant aquest input, a l'atribut (*) nom de l'objecte
+                            usuari assignat a th:objecte-->
+                        <input class="form-control" type="email" name="username" th:field="*{username}"/>
+                        <!--Comprovem si el camp "nom" conté errors mitjançant th:if="${#fields.hasErrors('username')}", on passem com a
+                            paràmetre el nom del camp on volem comprovar si hi ha errors, en el nostre cas "username", i ens retornarà
+                            verdader si conté errors i fals en cas contrari.
+                            Si conté errors, li demanarem a l'atribut nom del usuari que ens mostri els errors mitjançant th:errors="*{username}".
+                            Tot això és possible perquè en la classe Usuari hem afegit les anotacions per les validacions.-->
+                        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/>
+                    </p>
+                    <p>
+                        <label for="contrasenya" th:text="#{usuari.password1}"/> <!--Etiqueta per la contrasenya del usuari-->            
+                        <input class="form-control" type="password" name="password" th:field="*{password}"/> <!--Associem les dades introduïdes amb l'atribut password-->
+                        <!-- Gestió errors edat-->
+                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
+                    </p>
+                    <p>
+                        <label for="nom" th:text="#{usuari.nom1}"/> <!--Etiqueta per la contrasenya del usuari-->            
+                        <input class="form-control" type="text" name="nom" th:field="*{nom}"/> <!--Associem les dades introduïdes amb l'atribut password-->
+                        <!-- Gestió errors edat-->
+                        <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"/>
+                    </p>
+                    <p>
+                        <label for="cognoms" th:text="#{usuari.cognoms1}"/> <!--Etiqueta per la contrasenya del usuari-->            
+                        <input class="form-control" type="text" name="cognoms" th:field="*{cognoms}"/> <!--Associem les dades introduïdes amb l'atribut password-->
+                        <!-- Gestió errors edat-->
+                        <span th:if="${#fields.hasErrors('cognoms')}" th:errors="*{cognoms}"/>
+                    </p>
+                    <p>
+                        <label for="telefon" th:text="#{usuari.telefon1}"/> <!--Etiqueta per la contrasenya del usuari-->            
+                        <input class="form-control" type="tel" name="telefon" pattern="[0-9]{9}" th:field="*{telefon}"/> <!--Associem les dades introduïdes amb l'atribut password-->
+                        <!-- Gestió errors edat-->
+                        <span th:if="${#fields.hasErrors('telefon')}" th:errors="*{telefon}"/>
+                    </p>
+                    <p>
+                        <label for="rol" th:text="#{usuari.rol1}"/> <!--Etiqueta per la contrasenya del usuari-->
+                        <select class="form-select" name="rols" id="rols" th:field="*{rol}">
+                            <option value="administrador" th:text="#{rol.administrador}"/>
+                            <option value="professor" th:text="#{rol.professor}"/>
+                        </select>
+                        <!-- Gestió errors rol-->
+                        <span th:if="${#fields.hasErrors('rol')}" th:errors="*{rol}"/>
+                    </p>
+                    <!-- Botó per enviar les dades i afegir un nou usuari-->
+                    <input class="btn btn-primary btn-lg btn-block" type="submit" name="enviar" value="Editar"/>
+                    <br/>
+                    <a th:href ="@{/usuaris}"><input class="btn btn-primary btn-lg btn-block" type="button" name="enviar" value="Cancelar"/></a>
+                </form>
+            </div>
+        </div>
+    </p>
+</body>
+</html>

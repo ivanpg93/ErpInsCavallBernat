@@ -1,0 +1,61 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="#{comanda.crearComanda}"/>
+        <meta charset="UTF-8"/>
+        <!--Enllaç als estils de Bootstrap-->
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+        <!--Enllaç als estils de Font Awesome-->
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+        <!--Llibreries jquery, popper i Java Script de bootstrap pels elements dinamics que utilitzarem-->
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        <link th:href="@{/styles.css}" rel="stylesheet"></link>
+    </head>
+    <body> 
+        <header th:replace="layout/navBar :: navBar" />
+        <div class="card center" style="width: 25rem;">
+            <div class="card-body">
+                <h2 class="card-title" th:text="#{comanda.novaComanda}"/>
+                <p>          
+                <form th:action="@{/guardarComandaProfessor}" method="post" th:object="${comandaProfessor}">
+                    <input type="hidden" name="id_comanda" th:field="*{id_comanda}"/>           
+                    <p>
+                        <label for="nom" th:text="#{comanda.nom1}"/>
+                        <input class="form-control" type="text" name="nom" th:field="*{nom}"/>
+                    <div th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"/>
+                    </p>
+                    <input type="hidden" name="data" th:field="*{data}"/> 
+                    <p>
+                        <label for="dataArribada" th:text="#{comanda.dataArribada1}"/>
+                        <input class="form-control" type="date" name="dataArribada" th:min="${data_min_input}" th:field="*{data_Arribada}">
+                    <div th:if="${#fields.hasErrors('data_Arribada')}" th:errors="*{data_Arribada}"/>
+                    </p>
+                    <p>
+                        <label for="id_usuari" th:text="#{usuari}"/>
+                        <select class="form-select" name="id_usuari" id="id_usuari" th:field="*{id_usuari}">
+                            <option th:each="usuari : ${ids}" th:value="${usuari.id_usuari}" th:text="${usuari.nom} + ' ' + ${usuari.cognoms}"></option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('id_usuari')}" th:errors="*{id_usuari}"/>
+                    </p>
+
+                    <input type="hidden" name="id_centralitzada" th:field="*{id_centralitzada}"/>
+                    <input type="hidden" name="valida" th:field="*{valida}"/> 
+                    <input type="hidden" name="id_antiga" th:field="*{id_antiga}"/> 
+                    <p>
+                        <label for="modul" th:text="#{comanda.modul1}"/>
+                        <select class="form-select" th:field="*{modul}">
+                            <option th:each="modul : ${moduls}" th:value="${modul.id_modul}" th:text="${modul.nom}"></option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('modul')}" th:errors="*{modul}"/>
+                    </p>
+                    <input class="btn btn-primary btn-lg btn-block" type="submit" name="enviar" value="Crear"/>
+                    <br/>
+                    <input class="btn btn-primary btn-lg btn-block" type="button" name="cancelar" onclick='javascript:window.history.back()' value="Cancelar"/>
+                </form>
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

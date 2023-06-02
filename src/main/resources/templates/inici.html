@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title th:text="#{titol}"/>
+        <meta charset="UTF-8">
+        <!--Enllaç als estils de Bootstrap-->
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+        <!--Enllaç als estils de Font Awesome-->
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+        <!--Llibreries jquery, popper i Java Script de bootstrap pels elements dinamics que utilitzarem-->
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        <link th:href="@{/styles.css}" rel="stylesheet"></link>
+    </head>
+    <body>
+        <header th:replace="layout/navBar :: navBar"/>
+        <br/>
+        <h1 align="center" th:text="#{titol}"/>
+        <br/>
+        <div th:if="${rol}==Administrador" class="center">
+            <p>
+                <a th:href="@{/crearComandaProfessor}"><input class="btn btn-primary btn-lg" type="button" name="crear" value="Nova Comanda"/></a>
+            </p>
+            <p>
+                <a th:href="@{/totesComandes}"><input class="btn btn-primary btn-lg" type="button" name="comandes" value="Totes les Comandes"/></a>
+            </p>
+            <p>
+                <a th:href="@{/comandesAdministrador}"><input class="btn btn-primary btn-lg" type="button" name="comandesAdministrador" value="Comandes Centralitzades"/></a>        
+            </p>
+        </div>
+        <div th:unless="${rol}==Administrador" class="center">
+            <p>
+                <a th:href="@{/crearComandaProfessor}"><input class="btn btn-primary btn-lg" type="button" name="crear" value="Nova Comanda"/></a>
+            </p>
+            <p>
+                <a th:href="@{/comandesProfessor}"><input class="btn btn-primary btn-lg" type="button" name="comandes" value="Les Meves Comandes"/></a>
+            </p>
+    </body>
+</html>

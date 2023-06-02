@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Acceso Denegado</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <div>Accés denegat. No tens permisos per accedir a aquesta pàgina o executar aquesta acció.
+            <a th:href="@{/}">Inici</a>
+            
+            <a href="javascript: document.logoutForm.submit()" role="menuitem">Tancar Sessió</a>
+
+            <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                <input hidden type="submit" value="Sign Out"/>
+            </form> 
+        </div>
+    </body>
+</html>

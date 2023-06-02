@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title th:text="#{proveidors}"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    </head>
+    <body>
+        <header th:replace="layout/navBar :: navBar"/>
+        <div style="width: 50%; margin: 0 auto;">
+            <br/>
+            <h1 align="center" th:text="#{proveidor.llistatProveidors}"/>
+            <br/>
+            <br/>
+            <div th:if="${proveidors!=null && !proveidors.empty}" align="center">
+                <script src="../webjars/jquery/3.6.0/jquery.min.js"></script>
+                <script src="../webjars/datatables/1.11.4/js/jquery.dataTables.min.js"></script>
+                <link href="../webjars/datatables/1.11.4/css/jquery.dataTables.min.css" rel="stylesheet"></link>
+                <div>
+                    <br />
+                    <table id="table_id">
+                        <thead>
+                            <tr>
+                                <th th:text="#{proveidor.cif}"/>
+                                <th th:text="#{proveidor.nom}"/>
+                                <th th:text="#{proveidor.email}"/>
+                                <th th:text="#{proveidor.telefon}"/>
+                                <th th:text="#{proveidor.adreca}"/>
+                                <th th:text="#{proveidor.contacte}"/>
+                                <th th:text="#{editar}"/>
+                                <th th:text="#{eliminar}"/>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="proveidor : ${proveidors}">
+                                <td th:text="${proveidor.cif}"></td>
+                                <td th:text="${proveidor.nom}"></td>
+                                <td th:text="${proveidor.email}"></td>
+                                <td th:text="${proveidor.telefon}"></td>
+                                <td th:text="${proveidor.adreca}"></td>
+                                <td th:text="${proveidor.contacte}"></td>
+                                <td><a th:href="@{/editarProveidor/}+${proveidor.cif}"><i class="bi bi-pencil-fill"></i></a></td>
+                                <td><a th:href="@{/eliminarProveidor/}+${proveidor.cif}"><i class="bi bi-trash-fill"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#table_id').DataTable();
+                    });
+                </script>
+
+            </div>
+            <div th:if="${proveidors==null || proveidors.empty}">
+                No hi ha proveidors a la llista.
+            </div>
+            <p/>
+            <div align="center">
+                <a th:href="@{/crearProveidor}"th:text="#{proveidor.crearProveidor}"></a>
+                <a th:href="@{/crearProveidor}"><i class="bi bi-plus-circle"></i></a>
+            </div>
+        </div>
+    </body>
+</html>
